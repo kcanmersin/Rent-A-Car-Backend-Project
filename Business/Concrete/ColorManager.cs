@@ -1,5 +1,6 @@
 ﻿using Business.Abstract;
 using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,10 @@ namespace Business.Concrete
         {
             return _colorDal.GetAll();
         }
+        public Color GetById(int id)
+        {
+            return _colorDal.Get(b => b.ColorId == id);
+        }
 
-       
     }
 }
