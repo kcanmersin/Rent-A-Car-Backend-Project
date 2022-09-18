@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
@@ -27,6 +28,15 @@ namespace Business.Concrete
         public IDataResult< Color >GetById(int id)
         {
             return new SuccessDataResult<Color>(_colorDal.Get(b => b.ColorId == id));
+        }
+        public IResult Add(Color color)
+        {
+            if (color.ColorName.Length < 2)
+            {
+                return new ErrorResult(Messages.CarNameInvalid);
+            }
+            _colorDal.Add(color);
+            return new SuccessResult();
         }
 
     }
