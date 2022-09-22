@@ -4,6 +4,8 @@ using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Caching;
 using Core.Aspects.AutoFac.Validation;
+using Core.Aspects.Performance;
+using Core.Aspects.TransAction;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -19,7 +21,7 @@ using System.Threading.Tasks;
 namespace Business.Concrete
 {
     public class CarManager : ICarService
-    {
+    { 
         ICarDal _carDal;
 
         public CarManager(ICarDal carDal)
@@ -28,6 +30,9 @@ namespace Business.Concrete
         }
         [SecuredOperation("car.add")]
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
+        [TransactionScopeAspect]
+        [PerformanceAspect(5)]
         public IResult Add(Car car)
         {
 
@@ -71,6 +76,11 @@ namespace Business.Concrete
             return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(),Messages.CarsListed);
 
         }
-        
+        public IDataResult<List<CarDetailDto>> GetCarById(int carId)
+        {
+            var result = _carDal.GetCarDetails(c => c.CarId == carId);
+            return new SuccessDataResult<List<CarDetailDto>>(result);
+        }
+
     }
 }

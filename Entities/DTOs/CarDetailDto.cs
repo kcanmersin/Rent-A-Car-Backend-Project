@@ -20,6 +20,7 @@ namespace Entities.DTOs
         public short UnitsInStock { get; set; }
         public int DailyPrice { get; set; }
         public string Description { get; set; }
+        public string ImagePath { get; set; }
 
     }
 }
