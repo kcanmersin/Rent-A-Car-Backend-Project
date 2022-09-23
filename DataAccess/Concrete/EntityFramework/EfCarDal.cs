@@ -1,4 +1,5 @@
 ﻿using Core.DataAccess.EntityFramework;
+using Core.Entities;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -45,6 +46,96 @@ namespace DataAccess.Concrete.EntityFramework
                 return filter != null ? result.Where(filter).ToList() : result.ToList();
 
             }
+
         }
+        public List<CarDetailDto> GetCarDetailsByBrandId(int brandId)
+        {
+            using (CarProjectContext context = new CarProjectContext())
+            {
+                var res = from c in context.Cars
+                          join color in context.Colors
+                          on c.ColorId equals color.ColorId
+                          join bra in context.Brands
+
+                          on c.BrandId equals bra.BrandId
+                          where bra.BrandId == brandId
+                          select new CarDetailDto
+                          {
+                              CarId = c.CarId,
+                              CarName = c.CarName,
+                              BrandName = bra.BrandName,
+                              ColorName = color.ColorName,
+                              Description = c.Description,
+                              DailyPrice = c.DailyPrice,
+                              ModelYear = c.ModelYear
+
+                          };
+
+
+
+                return res.ToList();
+
+            }
+        }
+
+        public List<CarDetailDto> GetCarDetailsByColorId(int colorId)
+        {
+            using (CarProjectContext context = new CarProjectContext())
+            {
+                var res = from c in context.Cars
+                          join color in context.Colors
+                          on c.ColorId equals color.ColorId
+                          join bra in context.Brands
+
+                          on c.BrandId equals bra.BrandId
+                          where color.ColorId == colorId
+                          select new CarDetailDto
+                          {
+                              CarId = c.CarId,
+                              CarName = c.CarName,
+                              BrandName = bra.BrandName,
+                              ColorName = color.ColorName,
+                              Description = c.Description,
+                              DailyPrice = c.DailyPrice,
+                              ModelYear = c.ModelYear
+
+                          };
+
+
+
+                return res.ToList();
+
+            }
+        }
+        public List<CarDetailDto> GetCarDetailsByColorAndBrandId(int colorId, int brandId)
+        {
+            using (CarProjectContext context = new CarProjectContext())
+            {
+                var res = from c in context.Cars
+                          join color in context.Colors
+                          on c.ColorId equals color.ColorId
+                          join bra in context.Brands
+
+                          on c.BrandId equals bra.BrandId
+                          where color.ColorId == colorId && bra.BrandId == brandId
+                          select new CarDetailDto
+                          {
+                              CarId = c.CarId,
+                              CarName = c.CarName,
+                              BrandName = bra.BrandName,
+                              ColorName = color.ColorName,
+                              Description = c.Description,
+                              DailyPrice = c.DailyPrice,
+                              ModelYear = c.ModelYear
+
+                          };
+
+
+
+                return res.ToList();
+
+            }
+        }
+
     }
 }
