@@ -28,11 +28,12 @@ namespace Business.Concrete
         {
             _carDal = carDal;
         }
-        //[SecuredOperation("car.add")]
-        [ValidationAspect(typeof(CarValidator))]
+       /* [ValidationAspect(typeof(CarValidator))]
         [CacheRemoveAspect("ICarService.Get")]
         [TransactionScopeAspect]
-        [PerformanceAspect(5)]
+        [PerformanceAspect(5)]*/
+        [SecuredOperation("admin")]
+
         public IResult Add(Car car)
         {
 

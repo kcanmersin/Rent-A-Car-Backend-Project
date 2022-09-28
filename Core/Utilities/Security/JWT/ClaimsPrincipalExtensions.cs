@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Core.Utilities.Security.JWT
 {
@@ -17,6 +20,4 @@ namespace Core.Utilities.Security.JWT
             return claimsPrincipal?.Claims(ClaimTypes.Role);
         }
     }
-
-
 }

@@ -29,5 +29,8 @@ namespace Business.Constants
         public static string AccessTokenCreated = "Access token başarıyla oluşturuldu";
 
         public static string ProductNameAlreadyExists = "Ürün ismi zaten mevcut";
+        public static string PaymentSuccess = "Payment Succesfull";
+
+        
     }
 }
